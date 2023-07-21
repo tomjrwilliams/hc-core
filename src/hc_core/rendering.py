@@ -79,10 +79,12 @@ def render_source(f, cls_method = False):
 
 # ---------------------------------------------------------------
 
+import xtuples
+
 def render_df_color_range(
     df,
     cmap="RdYlGn",
-    dp=0,
+    dp=2,
     v_min=None,
     v_max=None,
     with_cols=None,
@@ -125,7 +127,10 @@ def render_df_color_range(
         return len(v)
 
     v_len = max(
-        xtuples.iTuple(numpy.round(df.values, dp)).flatten().map(
+        xtuples.iTuple(numpy.round(df.values, dp))
+        .flatten()
+        .map(str)
+        .map(
             lambda v: (
                 len(v) if dp != 0 else len(v.split(".")[0])
             )
